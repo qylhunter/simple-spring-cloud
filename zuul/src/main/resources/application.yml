@@ -1,0 +1,55 @@
+server:
+  port: 18001
+spring:
+  application:
+    name: zuul
+  zipkin:
+    server-ip: 127.0.0.1
+#    server-port: 9411
+    server-port: 18003
+    base-url: http://${spring.zipkin.server-ip}:${spring.zipkin.server-port}/
+  #设置采样比例1.0，默认比例0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+zuul:
+  #忽略掉应用名称访问，否则还是可以：../service_name/...进行访问
+  ignored-services: "*"
+  #设置路由
+  routes:
+    #配置注意项，service name:/other_name/**（即服务名:/自定义命名/**）
+    service-hi: /service-hi/**
+#    service-hi.path: /service-hi/**
+#    service-hi.service-id: service-hi
+    #配置模式1
+    service-hello: /hello/**
+#    #配置模式2
+#    service-hello.path: /hello/**
+#    service-hello.service-id: service-hello
+
+eureka:
+  client:
+    service-url:
+      #eureka server 加入安全认证后注册url书写方式
+      defaultZone: http://test:test@${eureka.client.server-ip}:${eureka.client.server-port}/eureka/
+#      #eureka server 未加入安全认证后注册url书写方式
+#      defaultZone: http://${eureka.client.server-ip}:${eureka.client.server-port}/eureka/
+#    server-port: 8761
+    server-port: 18000
+    server-ip: 127.0.0.1
+  instance:
+#    lease-renewal-interval-in-seconds: 10  #设置心跳的时间间隔（默认是30秒）
+#    #表示距离上一次发送心跳之后等待下一次发送心跳的间隔时间，如果超过了此间隔时间，则认为该微服务已经宕机了（默认是90秒）
+#    lease-expiration-duration-in-seconds: 20
+#    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}  # 在注册中心信息列表时显示的信息
+    prefer-ip-address: true     # 访问的路径变为IP地址
+
+
+#设置在注册中心中显示的具体信息
+info:
+  app.name: simple-sprinng-cloud
+  company.name: www.simple.cn
+  build.artifactId: $project.artifactId$
+  build.version: $project.verson$
+
+
