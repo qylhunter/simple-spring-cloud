@@ -44,3 +44,10 @@ info:
   build.artifactId: $project.artifactId$
   build.version: $project.verson$
 
+#接口认证配置
+auth:
+  username: test
+  password: test
+
+
+

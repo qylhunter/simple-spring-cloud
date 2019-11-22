@@ -23,6 +23,8 @@ zuul:
 #    service-hi.service-id: service-hi
     #配置模式1
     service-hello: /hello/**
+  #zuul会默认过滤掉一些敏感头部数据，以下为默认过滤的参数（包括Authorization）
+  sensitive-headers: Set-Cookie、Cookie、Host、Connection、Content-Length、Content-Encoding、Server、Transfer-Encoding、X-Application-Context
 #    #配置模式2
 #    service-hello.path: /hello/**
 #    service-hello.service-id: service-hello
@@ -52,4 +54,7 @@ info:
   build.artifactId: $project.artifactId$
   build.version: $project.verson$
 
-
+#接口认证配置
+auth:
+  username: test
+  password: test
