@@ -16,6 +16,7 @@
         <module>zipkin-server</module>
         <module>service-hi</module>
         <module>service-hello</module>
+        <module>hystrix-dashboard</module>
     </modules>
 
     <parent>
